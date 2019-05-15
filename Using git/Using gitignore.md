@@ -41,6 +41,6 @@ If you have complicated .gitignore patterns, or patterns spread over multiple .g
 
 The output shows:
 
-<file containing the pattern> : <line number of the pattern> : <pattern> <file name>
+            <file containing the pattern> : <line number of the pattern> : <pattern> <file name>
 
 You can pass multiple file names to git check-ignore if you like, and the names themselves don't even have to correspond to files that exist in your repository.
