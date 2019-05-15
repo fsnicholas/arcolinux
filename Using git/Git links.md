@@ -1,10 +1,10 @@
 # Recommended Links
 
-Bookmark this link to have a cheatsheet to all possible markdown for github.
+A cheatsheet to all possible markdown for github.
 
 [https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet](https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet)
 
-# Bookmark this link to have one of the better guides to know all about github.
+One of the better guides to using github.
 
 [https://www.atlassian.com/git/tutorials](https://www.atlassian.com/git/tutorials)
 
