@@ -1,4 +1,2 @@
-# arcolinux
-Working with ArcoLinux and Budgie
-
-- Created a directory for information on using git
+# fsn_arcolinux_repo
+Creating my own packages for ArcoLinux
