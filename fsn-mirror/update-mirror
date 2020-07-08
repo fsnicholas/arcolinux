@@ -1,0 +1,2 @@
+#!/usr/bin/env bash
+/usr/bin/reflector -c AU -c NZ -c SG -f 101 -l 101 -n 50 --sort rate --save /etc/pacman.d/mirrorlist
