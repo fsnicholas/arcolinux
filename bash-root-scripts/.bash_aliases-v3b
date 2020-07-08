@@ -1,0 +1,270 @@
+# .bash_alias for Arch Linux
+# F.S. Nicholas
+# lets call this V1 as a start
+# date created 2019 September 17
+# V2 - date-amended 2020 January 20
+# V3 - date-amended 2020 June 14
+# V3a - date-amended 2020 June 25
+# V3b - date-amended 2020 July 06
+
+# Using su
+alias su='sudo -i'
+
+#userlist
+alias userlist="cut -d: -f1 /etc/passwd | sort"
+alias grouplist='cat /etc/group | grep $USER | sort'
+
+#get the error messages from journalctl
+alias jctl="journalctl -p 3 -xb"
+
+# APPLICATIONS
+alias bashupdate='. ~/.bashrc'
+alias scp='scp -c blowfish -r'
+alias make='make -j4'
+alias wget='wget -c'   ## resume wget by default
+
+# FILE OPERATIONS
+alias fdisk='sudo fdisk -l'
+alias uuid='sudo vol_id -u'
+alias rfind='sudo find / -name'
+alias rrsync='sudo rsync --verbose -rtvogp --progress --force --delete'
+alias usdb='sudo umount /dev/sdb*'
+
+## FSN Alias
+# enable color support of ls and also add handy aliases
+if [ -x /usr/bin/dircolors ]; then
+    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
+    alias ls='ls --color=always'
+    alias dir='dir --color=auto'
+    alias vdir='vdir --color=auto'
+    alias diff='diff --color=auto'
+
+    alias grep='grep --color=auto'
+    alias fgrep='fgrep --color=auto'
+    alias egrep='egrep --color=auto'
+fi
+
+# some more ls aliases
+alias ll='ls -alh'
+alias la='ls -A'
+alias l='ls -CFlh'
+alias lf='ls -af'
+alias lr='ls -alhR'  # recursive
+alias l.="ls -A | egrep '^\.'"
+
+alias less='less -R'
+
+alias cls='clear'
+alias h='history'
+
+alias home='cd ~'
+alias ..='cd ..'
+alias '?=man'
+
+# fix mistakes
+alias cd..='cd ..'
+
+# Git CLI aliases
+alias g='git'
+alias gi='git init'
+alias gra='git remote add'
+alias gs='git status'
+alias gpom='git push origin master'
+
+alias path='echo -e ${PATH//:/\\n}'
+alias now='date +"%T"'
+alias nowtime=now
+alias nowdate='date +"%d-%m-%Y"'
+
+# do not delete / (root system) or prompt if deleting more than 3 files at a time
+alias rd='sudo rm -I -R --preserve-root'
+alias rm='rm -I --preserve-root'
+
+# confirmation #
+alias mvi='mv -i --verbose'
+alias cpi='cp -i --verbose'
+alias ln='ln -i'
+
+## no error if exists, make parent directories as needed
+alias mkdir='mkdir -pv'
+
+# Parenting changing perms on / #
+alias chown='chown --preserve-root'
+alias chmod='chmod --preserve-root'
+alias chgrp='chgrp --preserve-root'
+
+alias meminfo='free -l'
+alias df='df -hPT'
+alias du='du -chx'
+alias free='free -hmt'
+#alias python=/usr/bin/python3
+
+
+# locate ignore case
+alias locate='locate -i'
+
+#ps
+alias psa="ps auxf"
+# alias psgrep="ps aux | grep "
+alias psgrep="ps aux | grep -v grep | grep -i -e VSZ -e"
+pspt (){ ps aux | pt -v pt |  pt 'VSZ|'$1'';} # pt platinum search
+
+#improve png
+alias fixpng='find . -type f -name "*.png" -exec convert {} -strip {} \;'
+
+#quickly kill conkies
+alias kc='killall conky'
+
+#mounting the folder Public for exchange between host and guest on virtualbox
+# amended 2020 June 25
+alias vbm="sudo /usr/local/bin/arcolinux-vbox-share"
+
+#hardware info --short
+alias hw="hwinfo --short"
+
+#add new fonts
+alias update-fc='sudo fc-cache -fv'
+
+#backup contents of /etc/skel to hidden backup folder in home/user
+alias bupskel='cp -Rf /etc/skel ~/.skel-backup-$(date +%Y.%m.%d-%H.%M.%S)'
+alias bupconf='cp -Rf ~/.config ~/.config-backup-$(date +%Y.%m.%d-%H.%M.%S)'
+
+#copy/paste all content of /etc/skel over to home folder - backup of config created - beware
+alias skel='cp -Rf ~/.config ~/.config-backup-$(date +%Y.%m.%d-%H.%M.%S)'
+
+#copy bashrc-latest over on bashrc - cb= copy bashrc
+#alias cb='sudo cp /etc/skel/.bashrc ~/.bashrc && source ~/.bashrc'
+#copy /etc/skel/.zshrc over on ~/.zshrc - cb= copy zshrc
+#alias cz='sudo cp /etc/skel/.zshrc ~/.zshrc && source ~/.zshrc'
+
+#get fastest mirrors in your neighborhood
+alias mirrorf="sudo reflector -c AU -c NZ -c SG -f 105 -l 105 -n 40 --verbose --sort rate --save /etc/pacman.d/mirrorlist"
+alias mirrora="sudo reflector -c AU -f 104 -l 104 -n 40 --verbose --sort rate --save /etc/pacman.d/mirrorlist"
+
+# Aliases for software managment
+# pacman or pm
+alias pacman='sudo pacman --color auto'
+
+# Update and Upgrade Packages
+alias update='sudo pacman -Syyu'
+
+# yay as aur helper - updates everything
+alias pksyua="yay -Syu --noconfirm"
+alias upall="yay -Syu --noconfirm"
+alias pacupd='update && yay -Syu'
+
+# Install and Remove Packages
+alias pacinn='sudo pacman -S --needed'  # install if not already
+alias pacin='sudo pacman -S'  # install or reinstall
+alias pacre='sudo pacman -R '  ## remove package but keep settings & dependencies
+alias pacrm='sudo pacman -Rnsc'  ## -Rc rm package, settings & unneeded dependencies
+
+alias yayin='yay -S'  # install or reinstall
+alias yayre='yay -R '  ## remove package but keep settings & dependencies
+alias yayrm='yay -Rns'  ## rm package, settings & unneeded dependencies
+alias yayshow='yay -Ss' # search for packages in repository
+
+# FILE CLEANING
+### recursively removing orphans and their configuration files:
+## this is dangerous
+# alias pacclean='pacman -Rns $(sudo pacman -Qtdq)'
+# remove all cached versions of uninstalled packages &
+# keep no version of package of installed application
+alias pacclean='sudo paccache -ruk0 && 	sudo paccache -rk 0'
+
+
+# Search repository
+alias pacshow='sudo pacman -Ss' ## there is a pacsearch utility in Arch
+alias pacls='sudo pacman -Q'        ## List installed local packages along with version
+alias paclsall='sudo pacman -Qi'    ## Display local package full information
+alias paclsrem='sudo pacman -Si' ## Display remote package full information
+
+#remove lock files
+alias rmlogoutlock="sudo rm /tmp/arclogout.lock"
+alias rmpacmanlock="sudo rm /var/lib/pacman/db.lck"
+
+# if user is not root, pass all commands via sudo #
+if [ $UID -ne 0 ]; then
+
+    alias ffind='find / -name' #find a file. Usage: ffind 'filename'
+
+    #directory size. Usage: dirsize directoryname
+    #alias dirsize='du -hx --max-depth=1'
+    alias dirsize='du -schx ./*'
+
+    # clean cache
+    alias ccache='sysctl vm.drop_caches=3 && free'
+
+fi
+
+alias fsn='conda activate base'
+alias fsnpy='conda activate fsnpy'
+alias fsnd='cd ~ && conda deactivate'
+alias jlab='clear && jupyter lab'
+alias jbook='clear && jupyter notebook'
+
+#get the error messages from journalctl
+alias jctl="journalctl -p 3 -xb"
+
+#use all cores
+alias uac="sh ~/.bin/main/000*"
+
+#Recent Installed Packages
+alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -100"
+alias riplong="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | nl"
+
+# Shutdown and Reboot
+alias shutdown='sudo shutdown -h now'
+alias reboot='sudo reboot'
+
+#shutdown now
+alias ssn="sudo shutdown now"
+alias sr="sudo reboot"
+
+#nano for important configration files
+#know what you do in these files
+alias nlightdm="sudo nano /etc/lightdm/lightdm.conf"
+alias npacman="sudo nano /etc/pacman.conf"
+alias ngrub="sudo nano /etc/default/grub"
+alias nmkinitcpio="sudo nano /etc/mkinitcpio.conf"
+alias nslim="sudo nano /etc/slim.conf"
+alias noblogout="sudo nano /etc/oblogout.conf"
+alias nmirrorlist="sudo nano /etc/pacman.d/mirrorlist"
+alias nconfgrub="sudo nano /boot/grub/grub.cfg"
+alias bls="betterlockscreen -u /usr/share/backgrounds/arcolinux/"
+
+#grub update
+alias update-grub="sudo grub-mkconfig -o /boot/grub/grub.cfg"
+
+# # ex = EXtractor for all kinds of archives
+# # usage: ex <file>
+ex ()
+{
+  if [ -f $1 ] ; then
+    case $1 in
+      *.tar.bz2)   tar xjf $1   ;;
+      *.tar.gz)    tar xzf $1   ;;
+      *.bz2)       bunzip2 $1   ;;
+      *.rar)       unrar x $1   ;;
+      *.gz)        gunzip $1    ;;
+      *.tar)       tar xf $1    ;;
+      *.tbz2)      tar xjf $1   ;;
+      *.tgz)       tar xzf $1   ;;
+      *.zip)       unzip $1     ;;
+      *.Z)         uncompress $1;;
+      *.7z)        7z x $1      ;;
+      *.deb)       ar x $1      ;;
+      *.tar.xz)    tar xf $1    ;;
+      *.tar.zst)   unzstd $1    ;;  
+      *)           echo "'$1' cannot be extracted via ex()" ;;
+    esac
+  else
+    echo "'$1' is not a valid file"
+  fi
+}
+
+
+#switch between bash and zsh
+alias tobash="sudo chsh $USER -s /bin/bash && echo 'Now log out.'"
+alias tozsh="sudo chsh $USER -s /bin/zsh && echo 'Now log out.'"
+
