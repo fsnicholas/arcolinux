@@ -1,0 +1,184 @@
+--[[
+#=====================================================================================
+#                               arcolinux
+# Date    : 16/09/2017
+# Author  : Erik Dubois at http://www.erikdubois.be
+# Version : v1.2.0
+# Author  : Frank Nicholas
+# Date Amended : 01 July 2020
+# Version : v8a for transparency on KDE Plasma - June 29 2020
+# v8a Changed the size of the text headings from 10 to 8
+# v8b Added label Kernel - July 01 2020
+# Using Erik's config settings (amended for plasma) with my conky.text
+# License : Distributed under the terms of GNU GPL version 2 or later
+# Documentation : http://erikdubois.be/category/linux/aureola/
+#======================================================================================
+
+
+]]
+
+conky.config = {
+
+--Various settings
+
+	background = true, 							-- forked to background
+    update_interval = 2,						-- update interval
+
+    cpu_avg_samples = 2,						-- The number of samples to average for CPU monitoring.
+	diskio_avg_samples = 10,					-- The number of samples to average for disk I/O monitoring.
+	net_avg_samples = 2,						-- The number of samples to average for net data
+
+	
+	imlib_cache_size = 0,                       -- disable image cache to get a new spotify cover per song
+
+	double_buffer = true,						-- Use the Xdbe extension? (eliminates flicker)
+	no_buffers = true,							-- Subtract (file system) buffers from used memory?
+	text_buffer_size = 2048,					-- size of buffer for display of content of large variables - default 256
+
+	if_up_strictness = 'address',				-- how strict if testing interface is up - up, link or address
+	temperature_unit = 'celsius',				-- fahrenheit or celsius
+	
+
+--Placement
+
+	alignment = 'top_right',					-- top-left,top-middle,top-right,bottom-left,bottom-middle,bottom-right,
+												-- middle-left,middle-middle,middle-right,none
+	gap_x = 10,									-- pixels between right or left border
+	gap_y = 10,									-- pixels between bottom or left border
+	minimum_height = 200,						-- minimum height of window
+	minimum_width = 230,						-- minimum height of window  FSN set 280
+	maximum_width = 290,						-- maximum height of window - FSN its own width
+
+--Graphical
+
+	border_inner_margin = 5, 					-- margin between border and text
+	border_outer_margin = 0, 					-- margin between border and edge of window
+	border_width = 0, 							-- border width in pixels
+	default_bar_width = 0,  					-- default is 0 - full width
+	default_bar_height = 10,					-- default is 6
+	default_gauge_height = 25,					-- default is 25
+	default_gauge_width =40,					-- default is 40
+	default_graph_height = 40,					-- default is 25
+	default_graph_width = 153,					-- default is 0 - full width
+	default_shade_color = '#000000',			-- default shading colour
+	default_outline_color = '#000000',			-- default outline colour
+	draw_borders = false,						-- draw borders around text
+	draw_graph_borders = true,					-- draw borders around graphs
+	draw_shades = false,						-- draw shades
+	draw_outline = false,						-- draw outline
+	stippled_borders = 0,						-- dashing the border
+
+--Textual
+
+	extra_newline = false,						-- extra newline at the end - for asesome's wiboxes
+	format_human_readable = true,				-- KiB, MiB rather then number of bytes
+	font = 'Noto Mono:size=10:regular',  		-- font for complete conky unless in code defined
+	max_text_width = 0,							-- 0 will make sure line does not get broken if width too smal
+	max_user_text = 16384,						-- max text in conky default 16384
+	override_utf8_locale = true,				-- force UTF8 requires xft
+	short_units = true,							-- shorten units from KiB to k
+	top_name_width = 21,						-- width for $top name value default 15
+	top_name_verbose = false,					-- If true, top name shows the full command line of  each  process - Default value is false.
+	uppercase = false,							-- uppercase or not
+	use_spacer = 'none',						-- adds spaces around certain objects to align - default none
+	use_xft = true,								-- xft font - anti-aliased font
+	xftalpha = 1,								-- alpha of the xft font - between 0-1
+
+--Windows
+
+	own_window = true,							-- create your own window to draw
+	own_window_argb_value = 90,			        -- real transparency - composite manager required 0-255 FSN set 90
+	own_window_argb_visual = true,				-- use ARGB - composite manager required
+	own_window_transparent = false,				-- if own_window_argb_visual is true sets background opacity 0%
+	own_window_class = 'Conky',					-- manually set the WM_CLASS name for use with xprop
+	own_window_colour = '#000000',				-- set colour if own_window_transparent no
+	own_window_hints = 'undecorated,below,above,sticky,skip_taskbar,skip_pager',  -- if own_window true - just hints - own_window_type sets it
+	own_window_title = 'system_conky',			-- set the name manually  - default conky "hostname"
+	own_window_type = 'normal',				    -- if own_window true options are: normal/override/dock/desktop/panel
+	                                            -- FSN set 'normal' for KDE Plasma
+
+
+--Colours FSN Colours
+
+	default_color = '#DEDEDE',
+	color1 = '#F68516',
+	color2 = '#8C8C8C',
+	color3 = '#ABABAB',
+	color4 = '#C9C9C9',
+	color5 = '#DEDEDE',
+	color6 = '#757575',
+
+	--Signal Colours
+	color7 = '#1F7411',  						--green
+	color8 = '#FFA726',  						--orange
+	color9 = '#F1544B',  						--firebrick
+
+
+	--Lua
+
+
+};
+
+conky.text = [[
+${image ~/.config/conky/images/arcolinux-orange-100x100.png -p 120,0 -s 50x50}
+
+
+
+${voffset -16}${font sans-serif:bold:size=10}${alignc}${time %H:%M:%S}${font}
+${voffset 4}${font sans-serif:normal:size=10}${alignc}${time %A %B %d, %Y}
+${font}${voffset -4}
+${font xirod:Bold:size=8}${color1}SYSTEM ${hr 2}$font$color
+${font sans-serif:normal:size=8}Kernel: $alignr$sysname $kernel $machine
+Distrubution:  $alignr${execi 90000 lsb_release -d -s -r | tr -d '"'}
+Host: $alignr$nodename
+Uptime: $alignr$uptime
+File System: $alignr${fs_type}
+Processes: $alignr ${execi 5000 ps aux | wc -l}
+No of CPUs: $alignr ${exec grep -c ^processor /proc/cpuinfo}
+
+${font xirod:Bold:size=8}${color1}CPU ${hr 2}$font$color
+${font sans-serif:bold:size=8}${execi 1000 grep model /proc/cpuinfo | cut -d : -f2 | tail -1 | sed 's/\s//'}
+
+CPU 1: ${cpu cpu1}% ${cpubar cpu1}
+CPU 2: ${cpu cpu2}% ${cpubar cpu2}
+
+${font xirod:Bold:size=8}${color1}DISK USAGE ${hr 2}$font$color
+${font sans-serif:bold:size=8}SSD:${fs_size /} $alignc    Used: ${fs_used /}    Free: ${fs_free /}  $alignr ${fs_used_perc /}%
+${fs_bar /}
+
+${font xirod:Bold:size=8}${color1}MEMORY ${hr 2}$font$color
+${font sans-serif:bold:size=8}RAM:$memmax $alignc   Used: $mem    Free: $memeasyfree  $alignr $memperc%
+$membar
+
+${font xirod:Bold:size=8}${color1}LOAD ${hr 2}$font${color}
+${font Droid Sans:bold:size=8}MEMORY  ${hr 1}
+Name${goto 140}PID${goto 180}MEM(%)${goto 240}CPU(%)${font sans-serif:normal:size=8}
+${top_mem name 1}${goto 140}${top_mem pid 1}${goto 180}${top_mem mem 1}${goto 240}${top_mem cpu 1}${font sans-serif:normal:size=8}
+${top_mem name 2}${goto 140}${top_mem pid 2}${goto 180}${top_mem mem 2}${goto 240}${top_mem cpu 2}
+${top_mem name 3}${goto 140}${top_mem pid 3}${goto 180}${top_mem mem 3}${goto 240}${top_mem cpu 3}
+${top_mem name 4}${goto 140}${top_mem pid 4}${goto 180}${top_mem mem 4}${goto 240}${top_mem cpu 4}
+${top_mem name 5}${goto 140}${top_mem pid 5}${goto 180}${top_mem mem 5}${goto 240}${top_mem cpu 5}
+
+${font Droid Sans:bold:size=8}TOP PROCESSES  ${hr 1}
+${font Droid Sans:bold:size=8}Name${goto 140}PID${goto 180}CPU(%)${goto 240}MEM(%)${font sans-serif:normal:size=8}
+${top name 1} ${goto 140}${top pid 1}${goto 180} ${top cpu 1}${goto 240}${top mem 1}%
+${top name 2} ${goto 140}${top pid 2}${goto 180} ${top cpu 2}${goto 240}${top mem 2}%
+${top name 3} ${goto 140}${top pid 3}${goto 180} ${top cpu 3}${goto 240}${top mem 3}%
+${top name 4} ${goto 140}${top pid 4}${goto 180} ${top cpu 4}${goto 240}${top mem 4}%
+${top name 5} ${goto 140}${top pid 5}${goto 180} ${top cpu 5}${goto 240}${top mem 5}%
+${top name 6} ${goto 140}${top pid 6}${goto 180} ${top cpu 6}${goto 240}${top mem 6}%
+${top name 7} ${goto 140}${top pid 7}${goto 180} ${top cpu 7}${goto 240}${top mem 7}%
+${top name 8} ${goto 140}${top pid 8}${goto 180} ${top cpu 8}${goto 240}${top mem 8}%
+${top name 9} ${goto 140}${top pid 9}${goto 180} ${top cpu 9}${goto 240}${top mem 9}%
+${top name 10} ${goto 140}${top pid 10}${goto 180} ${top cpu 10}${goto 240}${top mem 10}%
+
+${font xirod:Bold:size=8}${color1}NETWORK ${hr 2}$font$color
+${font Droid Sans:bold:size=8}Local IP:${font sans-serif:normal:size=8} $alignr ${color red}${addr enp0s8}$color
+No. of connections $alignr ${tcp_portmon 1 65535 count}
+
+${font sans-serif:normal:size=8}Down: ${downspeed  enp0s3}  ${alignr}Up: ${upspeed enp0s3}
+${color lightgray}${downspeedgraph enp0s3 60,135 } ${alignr}${upspeedgraph enp0s3 60,135 }$color
+${font sans-serif:normal:size=8}Total: ${color green}${totaldown enp0s3}  $color${alignr}Total: ${color green}${totalup enp0s3}$color
+
+${font sans-serif:normal:size=8}${color yellow}Version:8c 
+]];
