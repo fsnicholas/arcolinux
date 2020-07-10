@@ -3,6 +3,7 @@
 # for examples
 # FSN v3 - 2020-June-14
 # FSN v3a - 2020-June-25
+# FSN v3b - 2020-July-10
 # 
 
 # If not running interactively, don't do anything
@@ -187,25 +188,5 @@ unset tempfile
 
 # Reload history.
 history -c ; history -r
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/home/nicholas/miniconda3/bin/conda' 'shell.bash' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/home/nicholas/miniconda3/etc/profile.d/conda.sh" ]; then
-        . "/home/nicholas/miniconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/home/nicholas/miniconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
 
 neofetch
