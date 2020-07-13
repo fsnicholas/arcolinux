@@ -6,6 +6,7 @@
 # V3 - date-amended 2020 June 14
 # V3a - date-amended 2020 June 25
 # V3b - date-amended 2020 July 06
+# V3c - date-amended 2020 July 13
 
 # Using su
 alias su='sudo -i'
@@ -212,6 +213,9 @@ alias uac="sh ~/.bin/main/000*"
 #Recent Installed Packages
 alias rip="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -100"
 alias riplong="expac --timefmt='%Y-%m-%d %T' '%l\t%n %v' | sort | tail -3000 | nl"
+
+#iso and version used to install ArcoLinux
+alias iso="cat /etc/dev-rel | awk -F '=' '/ISO/ {print $2}'"
 
 # Shutdown and Reboot
 alias shutdown='sudo shutdown -h now'
