@@ -14,7 +14,7 @@ echo "##########################################################################
 echo "CHANGING VERSION IN /ETC/LSB-RELEASE"
 echo "###############################################################################"
 echo
-sudo sed -i 's/\(^DISTRIB_RELEASE=\).*/\1v20.7.5/' /etc/lsb-release
+sudo sed -i 's/\(^DISTRIB_RELEASE=\).*/\1v20.7.11/' /etc/lsb-release
 
 echo "###############################################################################"
 echo "###                LSB-RELEASE NUMBER UPDATED               ####"
