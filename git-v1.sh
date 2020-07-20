@@ -14,6 +14,7 @@
 ##################################################################################################################
 
 # checking if I have the latest files from github
+echo "Checking for newer files online first"
 git pull
 
 # Below command will backup everything inside the project folder
