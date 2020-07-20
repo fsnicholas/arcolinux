@@ -1,0 +1,8 @@
+## add for pyenv
+# don't show warning about pyenv prompt
+# https://github.com/pyenv/pyenv-virtualenv/issues/135#issuecomment-582180662
+alias fsn='/home/nicholas/Documents/Python/ && pyenv activate fsn-env 2> >(grep -v PYENV_VIRTUALENV_DISABLE_PROMPT)'
+alias fsnd='source deactivate && cd ~'
+alias jlab='clear && jupyter lab'
+alias jbook='clear && jupyter notebook'
+
