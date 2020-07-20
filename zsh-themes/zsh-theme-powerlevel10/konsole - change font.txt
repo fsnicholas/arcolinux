@@ -1,0 +1,4 @@
+ 
+Konsole: Open Settings → Edit Current Profile → Appearance, click Select Font and select MesloLGS NF Regular.
+
+Run p10k configure after changing terminal font. The old ~/.p10k.zsh may work incorrectly with the new font.
