@@ -8,4 +8,4 @@ Creating my own packages for ArcoLinux. Mostly for Plasma
 * Python pyenv setup
 * Files for Australian mirrorlist
 
-
+Date: 20 July 2020
